@@ -5,6 +5,7 @@ WORKDIR /app
 COPY pom.xml ./
 COPY gift-quiz-model/pom.xml gift-quiz-model/pom.xml
 COPY gift-quiz-server/pom.xml gift-quiz-server/pom.xml
+COPY gift-quiz-client/pom.xml gift-quiz-client/pom.xml
 
 RUN mvn -pl gift-quiz-server -am dependency:go-offline
 
