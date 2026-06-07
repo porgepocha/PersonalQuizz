@@ -3,7 +3,8 @@ package com.jorge.constanca.server.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jorge.constanca.model.GiftRecommendation;
+import com.jorge.constanca.model.AnsweredText;
+import com.jorge.constanca.model.QuizCatalog;
 import com.jorge.constanca.model.QuizSubmissionRequest;
 import com.jorge.constanca.model.QuizSubmissionResponse;
 import com.jorge.constanca.model.StoredSubmissionView;
@@ -19,30 +20,25 @@ import java.util.List;
 public class SubmissionService {
 
     private final SubmissionRepository submissionRepository;
-    private final GiftScoringService giftScoringService;
     private final ObjectMapper objectMapper;
 
     public SubmissionService(
             SubmissionRepository submissionRepository,
-            GiftScoringService giftScoringService,
             ObjectMapper objectMapper
     ) {
         this.submissionRepository = submissionRepository;
-        this.giftScoringService = giftScoringService;
         this.objectMapper = objectMapper;
     }
 
     public QuizSubmissionResponse saveSubmission(QuizSubmissionRequest request) {
-        GiftRecommendation recommendation = giftScoringService.score(request.selectedOptionIds());
-
         SubmissionEntity entity = new SubmissionEntity();
-        entity.setParticipantName(blankToFallback(request.participantName(), "Mystery Girl"));
-        entity.setSelectedOptionIdsJson(toJson(request.selectedOptionIds()));
+        entity.setParticipantName(blankToFallback(request.participantName(), "Amor"));
+        entity.setSelectedOptionIdsJson(toJson(toOptionLabels(request.selectedOptionIds())));
         entity.setTextAnswersJson(toJsonTextAnswers(request.textAnswers()));
-        entity.setProfile(recommendation.profile());
-        entity.setRecommendationTitle(recommendation.title());
-        entity.setRecommendationReason(recommendation.reason());
-        entity.setSuggestionsJson(toJson(recommendation.suggestions()));
+        entity.setProfile("");
+        entity.setRecommendationTitle("");
+        entity.setRecommendationReason("");
+        entity.setSuggestionsJson("[]");
         entity.setClientVersion(blankToFallback(request.clientVersion(), "dev"));
         entity.setCreatedAt(OffsetDateTime.now());
 
@@ -52,7 +48,7 @@ public class SubmissionService {
         return new QuizSubmissionResponse(
                 saved.getId(),
                 sweetMessage,
-                recommendation.title(),
+                "",
                 saved.getCreatedAt().toString()
         );
     }
@@ -63,12 +59,8 @@ public class SubmissionService {
                         entity.getId(),
                         entity.getParticipantName(),
                         entity.getCreatedAt().toString(),
-                        entity.getProfile(),
-                        entity.getRecommendationTitle(),
-                        entity.getRecommendationReason(),
-                        fromJsonList(entity.getSelectedOptionIdsJson()),
-                        fromJsonTextAnswers(entity.getTextAnswersJson()),
-                        fromJsonList(entity.getSuggestionsJson())
+                        toOptionLabels(fromJsonList(entity.getSelectedOptionIdsJson())),
+                        toAnsweredTexts(fromJsonTextAnswers(entity.getTextAnswersJson()))
                 ))
                 .toList();
     }
@@ -112,5 +104,21 @@ public class SubmissionService {
         } catch (JsonProcessingException exception) {
             throw new IllegalStateException("Failed to deserialize text answers.", exception);
         }
+    }
+
+    private List<String> toOptionLabels(List<String> values) {
+        return values == null ? List.of() : values.stream()
+                .map(QuizCatalog::optionLabelFor)
+                .toList();
+    }
+
+    private List<AnsweredText> toAnsweredTexts(List<TextAnswer> values) {
+        return values == null ? List.of() : values.stream()
+                .map(answer -> new AnsweredText(
+                        answer.questionId(),
+                        QuizCatalog.questionPromptFor(answer.questionId()),
+                        answer.answer()
+                ))
+                .toList();
     }
 }

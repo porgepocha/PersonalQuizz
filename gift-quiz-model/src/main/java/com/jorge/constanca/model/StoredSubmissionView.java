@@ -6,11 +6,7 @@ public record StoredSubmissionView(
         Long submissionId,
         String participantName,
         String createdAt,
-        String profile,
-        String title,
-        String reason,
-        List<String> selectedOptionIds,
-        List<TextAnswer> textAnswers,
-        List<String> suggestions
+        List<String> selectedOptions,
+        List<AnsweredText> textAnswers
 ) {
 }
