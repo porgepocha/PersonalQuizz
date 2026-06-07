@@ -5,7 +5,7 @@
     "buildCommand": "mvn -pl gift-quiz-server -am package -Dmaven.test.skip=true"
   },
   "deploy": {
-    "startCommand": "java -jar gift-quiz-server/target/gift-quiz-server-1.0.0-SNAPSHOT.jar",
+    "startCommand": "java -jar /app/app.jar",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   },
