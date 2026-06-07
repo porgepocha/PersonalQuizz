@@ -1,0 +1,12 @@
+.m2-local/
+dist/
+*/target/
+gift-quiz-server/gift-quiz-server/data/
+spotify.properties
+failed-submissions/
+.git-backup-before-clean/
+*.log
+*.mv.db
+*.trace.db
+.DS_Store
+Thumbs.db

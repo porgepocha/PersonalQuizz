@@ -1,0 +1,199 @@
+.root {
+    -fx-font-family: "Georgia";
+}
+
+.screen {
+    -fx-background-color: linear-gradient(to bottom right, #f7efe8, #e4d1cf);
+}
+
+.reveal-screen {
+    -fx-background-color: linear-gradient(to bottom right, #f4e9e3, #d9c3cb);
+}
+
+.card {
+    -fx-background-color: rgba(255, 251, 248, 0.95);
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: rgba(118, 89, 82, 0.16);
+    -fx-border-width: 1;
+    -fx-max-width: 720;
+    -fx-effect: dropshadow(gaussian, rgba(62, 40, 38, 0.14), 28, 0.18, 0, 12);
+}
+
+.reveal-card {
+    -fx-background-color: rgba(255, 248, 246, 0.97);
+}
+
+.eyebrow {
+    -fx-text-fill: #8b6258;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.title {
+    -fx-text-fill: #3f2c33;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #705861;
+    -fx-font-size: 17px;
+    -fx-font-style: italic;
+}
+
+.question-title {
+    -fx-text-fill: #433038;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.body-text {
+    -fx-text-fill: #625159;
+    -fx-font-size: 16px;
+}
+
+.music-hint {
+    -fx-text-fill: #7f666f;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+.name-field {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-padding: 12 14;
+    -fx-font-size: 15px;
+}
+
+.primary-button,
+.secondary-button,
+.option-button {
+    -fx-cursor: hand;
+    -fx-background-radius: 18;
+    -fx-padding: 14 18;
+    -fx-font-size: 15px;
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #b96e6f, #8f5f73);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.secondary-button {
+    -fx-background-color: #efe0df;
+    -fx-text-fill: #634851;
+}
+
+.option-button {
+    -fx-background-color: linear-gradient(to right, #fffdfc, #fbf3f2);
+    -fx-text-fill: #543e47;
+    -fx-alignment: center-left;
+    -fx-wrap-text: true;
+    -fx-border-color: #ead6d5;
+    -fx-border-radius: 18;
+}
+
+.option-button:hover,
+.primary-button:hover,
+.secondary-button:hover {
+    -fx-opacity: 0.92;
+}
+
+.progress {
+    -fx-accent: #b87b88;
+}
+
+.result-chip {
+    -fx-background-color: #f1d9df;
+    -fx-background-radius: 999;
+    -fx-padding: 10 18;
+    -fx-text-fill: #6f4857;
+    -fx-font-weight: bold;
+}
+
+.info-block {
+    -fx-background-color: rgba(255, 247, 246, 0.92);
+    -fx-background-radius: 18;
+    -fx-padding: 14 16;
+    -fx-border-color: #eadbd8;
+    -fx-border-radius: 18;
+}
+
+.gallery-row {
+    -fx-padding: 8 2 8 2;
+}
+
+.gallery-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-pref-height: 390;
+}
+
+.gallery-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.photo-card {
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-border-color: rgba(255,255,255,0.4);
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(32, 23, 30, 0.18), 26, 0.18, 0, 12);
+}
+
+.photo-placeholder {
+    -fx-background-color: linear-gradient(to bottom right, #eedfdd, #d6c2ca);
+    -fx-background-radius: 24;
+    -fx-pref-width: 220;
+    -fx-pref-height: 340;
+}
+
+.photo-placeholder-text {
+    -fx-text-fill: #6d5760;
+    -fx-font-size: 15px;
+    -fx-font-style: italic;
+    -fx-max-width: 150;
+}
+
+.photo-overlay {
+    -fx-background-color: linear-gradient(to top, rgba(32, 22, 27, 0.72), rgba(32, 22, 27, 0.05));
+    -fx-background-radius: 0 0 24 24;
+    -fx-pref-width: 220;
+}
+
+.photo-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.photo-caption {
+    -fx-text-fill: rgba(255,255,255,0.88);
+    -fx-font-size: 13px;
+    -fx-max-width: 188;
+}
+
+.reveal-text {
+    -fx-font-size: 17px;
+    -fx-max-width: 560;
+}
+
+.reveal-signoff {
+    -fx-font-size: 15px;
+}
+
+.simulation-frame {
+    -fx-background-color: rgba(255, 248, 246, 0.98);
+    -fx-background-radius: 24;
+    -fx-border-color: #ead6d5;
+    -fx-border-radius: 24;
+    -fx-padding: 18;
+}
+
+.simulation-note {
+    -fx-text-fill: #8b5a6b;
+    -fx-font-size: 16px;
+    -fx-font-style: italic;
+}
