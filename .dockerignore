@@ -1,0 +1,8 @@
+.git
+.git-backup-before-clean
+.m2-local
+dist
+**/target
+spotify.properties
+failed-submissions
+*.log
