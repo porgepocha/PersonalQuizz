@@ -15,27 +15,25 @@ public class GiftQuizServerApplication {
     }
 
     private static void configureDatasourceFromEnvironment() {
-        String explicitUrl = System.getenv("SPRING_DATASOURCE_URL");
-        if (explicitUrl != null && !explicitUrl.isBlank()) {
+        String rawUrl = firstNonBlank(
+                System.getenv("SPRING_DATASOURCE_URL"),
+                System.getenv("DATABASE_URL")
+        );
+        if (rawUrl == null) {
             return;
         }
 
-        String databaseUrl = System.getenv("DATABASE_URL");
-        if (databaseUrl == null || databaseUrl.isBlank()) {
+        if (rawUrl.startsWith("jdbc:")) {
+            System.setProperty("spring.datasource.url", rawUrl);
             return;
         }
 
-        if (databaseUrl.startsWith("jdbc:")) {
-            System.setProperty("spring.datasource.url", databaseUrl);
-            return;
-        }
-
-        if (!databaseUrl.startsWith("postgres://") && !databaseUrl.startsWith("postgresql://")) {
+        if (!rawUrl.startsWith("postgres://") && !rawUrl.startsWith("postgresql://")) {
             return;
         }
 
         try {
-            URI uri = new URI(databaseUrl);
+            URI uri = new URI(rawUrl);
             String jdbcUrl = "jdbc:postgresql://" + uri.getHost();
             if (uri.getPort() != -1) {
                 jdbcUrl += ":" + uri.getPort();
@@ -64,5 +62,14 @@ public class GiftQuizServerApplication {
         } catch (URISyntaxException ignored) {
             // Leave Spring Boot to report the original datasource issue if the URL is malformed.
         }
+    }
+
+    private static String firstNonBlank(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                return value;
+            }
+        }
+        return null;
     }
 }
